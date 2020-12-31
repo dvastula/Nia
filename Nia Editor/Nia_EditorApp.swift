@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct Nia_EditorApp: App {
-    var body: some Scene {
-        WindowGroup {
-            ContentView()
-        }
+  var currentEditor: Editor = Editor()
+  
+  var body: some Scene {
+    WindowGroup {
+      PreviewScreen().environmentObject(currentEditor)
     }
+  }
 }
