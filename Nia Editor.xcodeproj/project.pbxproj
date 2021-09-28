@@ -22,6 +22,7 @@
 		97C86927255F295E00D9C1F3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C86926255F295E00D9C1F3 /* Extensions.swift */; };
 		97C8692A255F2A4A00D9C1F3 /* PreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C86929255F2A4A00D9C1F3 /* PreviewView.swift */; };
 		97C8692D255F36A100D9C1F3 /* MediaAsset.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C8692C255F36A100D9C1F3 /* MediaAsset.swift */; };
+		ED96369726583C300073CB1B /* FaceRecognition.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED96369626583C300073CB1B /* FaceRecognition.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		97C86926255F295E00D9C1F3 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		97C86929255F2A4A00D9C1F3 /* PreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewView.swift; sourceTree = "<group>"; };
 		97C8692C255F36A100D9C1F3 /* MediaAsset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaAsset.swift; sourceTree = "<group>"; };
+		ED96369626583C300073CB1B /* FaceRecognition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceRecognition.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +75,7 @@
 			children = (
 				970193982559A7DB0009FB68 /* Samples.swift */,
 				97C86926255F295E00D9C1F3 /* Extensions.swift */,
+				ED96369626583C300073CB1B /* FaceRecognition.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -203,6 +206,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED96369726583C300073CB1B /* FaceRecognition.swift in Sources */,
 				976D72B1255DE3D700C44889 /* PreviewScreen.swift in Sources */,
 				97774A7A255642C7006985F0 /* VideoQueueScreen.swift in Sources */,
 				977E8C862559AE9C00A94B58 /* MediaAssetView.swift in Sources */,
@@ -353,7 +357,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "damirka.Nia-Editor";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.damirka.Nia-Editor";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -375,7 +379,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "damirka.Nia-Editor";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.damirka.Nia-Editor";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
