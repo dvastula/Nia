@@ -10,8 +10,6 @@ import AVKit
 
 struct StickerView: View {
   @ObservedObject var mediaAsset: MediaAsset
-  @State private var full: Bool = false
-
   @State private var avPlayer: AVPlayer = AVPlayer()
   
   @State private var offset: CGSize = .zero
@@ -72,16 +70,13 @@ struct StickerView: View {
       }
     }
     
-    .frame(width: full ? nil : mediaAsset.frame.width,
-           height: full ? nil : mediaAsset.frame.height,
+    .frame(width: mediaAsset.frame.width,
+           height: mediaAsset.frame.height,
            alignment: .topLeading)
-    .scaleEffect(full ? 1.0 : mediaAsset.scale)
-    .rotationEffect(full ? .zero : mediaAsset.rotation)
-    .offset(full ? .zero : mediaAsset.offset)
+    .scaleEffect(mediaAsset.scale)
+    .rotationEffect(mediaAsset.rotation)
+    .offset(mediaAsset.offset)
     .gesture(allGestures)
-    .onTapGesture {
-      full.toggle()
-    }
-    .animation(.linear(duration: 0.2))
+    .animation(.linear(duration: 0.1))
   }
 }

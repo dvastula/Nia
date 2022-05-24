@@ -10,6 +10,7 @@ import AVFoundation
 
 class Editor: Identifiable, ObservableObject {
   var id = UUID()
+  @Published var size: CGSize = CGSize(width: 1000, height: 1250)
   @Published var assets: [MediaAsset] = []
   
   @discardableResult
