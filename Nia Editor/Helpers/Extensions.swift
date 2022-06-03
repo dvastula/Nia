@@ -14,6 +14,48 @@ func + (left: CGSize, right: CGSize) -> CGSize {
                 height: left.height + right.height)
 }
 
+func < (left: CGSize, right: CGSize) -> Bool {
+  return left.width < right.width && left.height < right.height
+}
+
+func > (left: CGSize, right: CGSize) -> Bool {
+  return left.width > right.width && left.height > right.height
+}
+
+
+extension CGSize {
+  
+  func aspectFitRatio(inside size: CGSize) -> CGFloat {
+    let widthRatio = size.width / self.width
+    let heightRatio = size.height / self.height
+    
+    return min(widthRatio, heightRatio)
+  }
+  
+  func aspectFit(into size: CGSize) -> CGSize {
+    if self.width == 0.0 || self.height == 0.0 {
+      return self
+    }
+    
+    let aspectRatio = aspectFitRatio(inside: size)
+    
+    return CGSize(width: self.width * aspectRatio,
+                  height: self.height * aspectRatio)
+  }
+  
+  func aspectFill(into size: CGSize) -> CGSize {
+    if self.width == 0.0 || self.height == 0.0 {
+      return self
+    }
+    
+    let widthRatio = size.width / self.width
+    let heightRatio = size.height / self.height
+    let aspectFillRatio = max(widthRatio, heightRatio)
+    return CGSize(width: self.width * aspectFillRatio, height: self.height * aspectFillRatio)
+  }
+  
+}
+
 extension AVAsset {
   func preview() -> Image? {
     let imageGenerator = AVAssetImageGenerator(asset: self)

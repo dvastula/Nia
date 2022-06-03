@@ -11,8 +11,7 @@ fileprivate let previewBackground = darkColors.randomElement()!
 
 struct PreviewView: View {
   @EnvironmentObject var currentEditor: Editor
-  @State private var scale: CGFloat = 1.0
-
+  
   var body: some View {
     ZStack {
       ForEach(currentEditor.assets) { mediaAsset in
@@ -29,11 +28,9 @@ struct PreviewView: View {
            height: currentEditor.size.height,
            alignment: .topLeading)
     
-    .scaleEffect(scale)
-
     .background(previewBackground)
-    .aspectRatio(currentEditor.size,
-                 contentMode: .fit)
+//    .aspectRatio(currentEditor.size,
+//                 contentMode: .fit)
     .clipped()
   }
 }
