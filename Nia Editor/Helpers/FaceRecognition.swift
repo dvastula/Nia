@@ -15,10 +15,10 @@ class FaceRecognizer {
   lazy var sequenceRequestHandler = VNSequenceRequestHandler()
   let faceLandmarksDetectionRequest = createFaceRequest()
 
-  func processVideo(asset: AVAsset) {
+  func processVideo(asset: AVAsset) async {
     let reader = try! AVAssetReader(asset: asset)
 
-    let videoTrack = asset.tracks(withMediaType: AVMediaType.video)[0]
+    let videoTrack = try! await asset.loadTracks(withMediaType: .video).first!
 
     // read video frames as BGRA
     let outputSettings = [String(kCVPixelBufferPixelFormatTypeKey): NSNumber(value: kCVPixelFormatType_32BGRA)]
@@ -58,7 +58,7 @@ class FaceRecognizer {
       }
 
       guard let faceDetectionRequest = request as? VNDetectFaceRectanglesRequest,
-            let results = faceDetectionRequest.results as? [VNFaceObservation] else {
+            let results = faceDetectionRequest.results else {
         return
       }
 
@@ -154,11 +154,12 @@ class FaceRecognizer {
         }
 
         guard let landmarksRequest = request as? VNDetectFaceLandmarksRequest,
-              let results = landmarksRequest.results as? [VNFaceObservation] else {
+              let results = landmarksRequest.results else {
           completion()
           return
         }
 
+        print(results.count)
         // Perform all UI updates (drawing) on the main queue, not the background queue on which this handler is being called.
         //        DispatchQueue.main.async {
         //          self.drawFaceObservations(results)
@@ -204,7 +205,7 @@ extension FaceRecognizer {
 
     try! imageRequestHandler.perform([faceLandmarksDetectionRequest])
 
-    guard let faceLandmarks = faceLandmarksDetectionRequest.results as? [VNFaceObservation] else {
+    guard let faceLandmarks = faceLandmarksDetectionRequest.results else {
       fatalError("unexpected result type from VNCoreMLRequest")
     }
 
@@ -222,7 +223,7 @@ extension FaceRecognizer {
       print(error)
     }
 
-    guard let faceLandmarks = faceLandmarksDetectionRequest.results as? [VNFaceObservation] else {
+    guard let faceLandmarks = faceLandmarksDetectionRequest.results else {
       print("unexpected result type from VNCoreMLRequest")
       return []
     }

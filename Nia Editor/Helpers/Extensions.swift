@@ -57,11 +57,12 @@ extension CGSize {
 }
 
 extension AVAsset {
-  func preview() -> Image? {
+  func preview() async -> Image? {
     let imageGenerator = AVAssetImageGenerator(asset: self)
     imageGenerator.appliesPreferredTrackTransform = true
     
-    var time = self.duration
+    var time = try! await self.load(.duration)
+    
     //If possible - take not the first frame (it could be completely black or white on camara's videos)
     time.value = min(time.value, 2)
     

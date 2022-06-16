@@ -8,7 +8,7 @@
 import SwiftUI
 
 let floatingButtonRadius: CGFloat = 35
-let customAccentColor: Color = Color(#colorLiteral(red: 0.5807225108, green: 0.066734083, blue: 0, alpha: 1))
+let customAccentColor: Color = Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))
 
 /// View with two buttons
 /// Should be always be a last child in ZStack
@@ -32,22 +32,14 @@ struct FloatPanel<Content: View>: View {
   }
 }
 
-
-struct FloatButton: View {
-  let imageName: String
-  let action: () -> ()
+struct FloatButton: ButtonStyle {
+  @Environment(\.isEnabled) private var isEnabled
   
-  var body: some View {
-    Button {
-      action()
-    } label: {
-      Image(systemName: imageName)
-        .font(.largeTitle)
-        .foregroundColor(.white)
-        .frame(width: floatingButtonRadius * 2,
-               height: floatingButtonRadius * 2)
-    }
-    .background(customAccentColor)
-    .cornerRadius(floatingButtonRadius)
+  func makeBody(configuration: Configuration) -> some View {
+    configuration
+      .label
+      .padding()
+      .background(customAccentColor)
+      .cornerRadius(floatingButtonRadius)
   }
 }

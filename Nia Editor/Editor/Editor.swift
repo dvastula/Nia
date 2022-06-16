@@ -35,7 +35,7 @@ class Editor: Identifiable, ObservableObject {
   }
   
   @discardableResult
-  func prepareComposition() -> AVMutableComposition {
+  func prepareComposition() async -> AVMutableComposition {
     let mixComposition = AVMutableComposition(urlAssetInitializationOptions: [AVURLAssetPreferPreciseDurationAndTimingKey: true])
     
     mixComposition.naturalSize = .init(width: 4000, height: 4000)
@@ -46,7 +46,7 @@ class Editor: Identifiable, ObservableObject {
         let avAsset = videoAsset.avAsset
         
         let maxTime = mixComposition.getMaxTimeOfTracks()
-        mixComposition.add(avAsset: avAsset, to: maxTime)
+        await mixComposition.add(avAsset: avAsset, to: maxTime)
       }
     }
     
@@ -56,22 +56,24 @@ class Editor: Identifiable, ObservableObject {
 }
 
 fileprivate extension AVMutableComposition {
-  func add(avAsset: AVAsset, to time: CMTime = .zero) {
-    print("Adding asset to time \(time.seconds) with duration \(avAsset.duration.seconds)")
-    
-    let newTrack = self.addMutableTrack(withMediaType: .video,
-                                        preferredTrackID: kCMPersistentTrackID_Invalid)
-    let assetTrack = avAsset.tracks(withMediaType: .video)[0]
-    
+  func add(avAsset: AVAsset, to time: CMTime = .zero) async {
     do {
+      let duration = try await avAsset.load(.duration)
+      
+      print("Adding asset to time \(time.seconds) with duration \(duration.seconds)")
+      
+      let newTrack = self.addMutableTrack(withMediaType: .video,
+                                          preferredTrackID: kCMPersistentTrackID_Invalid)
+      let assetTrack = try await avAsset.loadTracks(withMediaType: .video).first!
+    
       try newTrack?.insertTimeRange(CMTimeRange(start: .zero,
-                                                end: avAsset.duration),
+                                                end: duration),
                                     of: assetTrack,
                                     at: time)
       
-      newTrack?.preferredTransform = assetTrack.preferredTransform
+      newTrack?.preferredTransform = try await assetTrack.load(.preferredTransform)
     } catch {
-      print("Error = \(error.localizedDescription)")
+      print("Error while adding asset to composition = \(error.localizedDescription)")
     }
   }
   

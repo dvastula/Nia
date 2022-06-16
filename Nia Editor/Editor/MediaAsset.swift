@@ -23,14 +23,14 @@ class MediaAsset: Identifiable, ObservableObject {
 class VideoAsset: MediaAsset {
   var avAsset: AVAsset
   
-  init(from avAsset: AVAsset) {
+  init(from avAsset: AVAsset) async {
     self.avAsset = avAsset
     super.init()
 
-    self.duration = avAsset.duration.seconds
+    self.duration = try! await avAsset.load(.duration).seconds
     self.frame = CGRect(x: 100, y: 100, width: 200, height: 200)
     
-    if let previewImage = avAsset.preview() {
+    if let previewImage = await avAsset.preview() {
       self.image = previewImage
     }
   }

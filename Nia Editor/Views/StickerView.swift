@@ -76,7 +76,7 @@ struct StickerView: View {
     .scaleEffect(mediaAsset.scale)
     .rotationEffect(mediaAsset.rotation)
     .offset(mediaAsset.offset)
+    .position(x: mediaAsset.frame.midX, y: mediaAsset.frame.midY)
     .gesture(allGestures)
-    .animation(.linear(duration: 0.1))
   }
 }

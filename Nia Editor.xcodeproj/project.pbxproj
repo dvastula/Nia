@@ -16,7 +16,6 @@
 		97774A8825564330006985F0 /* Editor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97774A8725564330006985F0 /* Editor.swift */; };
 		977E8C822559AC4E00A94B58 /* FloatPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977E8C812559AC4E00A94B58 /* FloatPanel.swift */; };
 		977E8C862559AE9C00A94B58 /* MediaAssetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977E8C852559AE9C00A94B58 /* MediaAssetView.swift */; };
-		977E8CAC2559BA1800A94B58 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977E8CAB2559BA1800A94B58 /* ImagePicker.swift */; };
 		9790741C255F226F00377A0A /* VideoPlayer2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9790741B255F226F00377A0A /* VideoPlayer2.swift */; };
 		97C86924255F28BC00D9C1F3 /* StickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C86923255F28BC00D9C1F3 /* StickerView.swift */; };
 		97C86927255F295E00D9C1F3 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97C86926255F295E00D9C1F3 /* Extensions.swift */; };
@@ -37,7 +36,6 @@
 		97774A8725564330006985F0 /* Editor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Editor.swift; sourceTree = "<group>"; };
 		977E8C812559AC4E00A94B58 /* FloatPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatPanel.swift; sourceTree = "<group>"; };
 		977E8C852559AE9C00A94B58 /* MediaAssetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaAssetView.swift; sourceTree = "<group>"; };
-		977E8CAB2559BA1800A94B58 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		9790741B255F226F00377A0A /* VideoPlayer2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer2.swift; sourceTree = "<group>"; };
 		97C86923255F28BC00D9C1F3 /* StickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerView.swift; sourceTree = "<group>"; };
 		97C86926255F295E00D9C1F3 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -62,7 +60,6 @@
 			children = (
 				977E8C852559AE9C00A94B58 /* MediaAssetView.swift */,
 				977E8C812559AC4E00A94B58 /* FloatPanel.swift */,
-				977E8CAB2559BA1800A94B58 /* ImagePicker.swift */,
 				9790741B255F226F00377A0A /* VideoPlayer2.swift */,
 				97C86929255F2A4A00D9C1F3 /* PreviewView.swift */,
 				97C86923255F28BC00D9C1F3 /* StickerView.swift */,
@@ -211,7 +208,6 @@
 				97774A7A255642C7006985F0 /* VideoQueueScreen.swift in Sources */,
 				977E8C862559AE9C00A94B58 /* MediaAssetView.swift in Sources */,
 				977E8C822559AC4E00A94B58 /* FloatPanel.swift in Sources */,
-				977E8CAC2559BA1800A94B58 /* ImagePicker.swift in Sources */,
 				97C8692A255F2A4A00D9C1F3 /* PreviewView.swift in Sources */,
 				97C8692D255F36A100D9C1F3 /* MediaAsset.swift in Sources */,
 				970193992559A7DB0009FB68 /* Samples.swift in Sources */,
@@ -277,7 +273,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -332,7 +328,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -352,7 +348,7 @@
 				DEVELOPMENT_TEAM = BZ82DRDZY8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Nia Editor/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -374,7 +370,7 @@
 				DEVELOPMENT_TEAM = BZ82DRDZY8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Nia Editor/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

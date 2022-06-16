@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-fileprivate let previewBackground = darkColors.randomElement()!
+fileprivate let previewBackground = colors.randomElement()!
 
 struct PreviewView: View {
   @EnvironmentObject var currentEditor: Editor
@@ -29,8 +29,6 @@ struct PreviewView: View {
            alignment: .topLeading)
     
     .background(previewBackground)
-//    .aspectRatio(currentEditor.size,
-//                 contentMode: .fit)
     .clipped()
   }
 }
