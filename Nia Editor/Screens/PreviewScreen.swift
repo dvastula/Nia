@@ -18,7 +18,8 @@ enum ScaleMode {
 struct PreviewScreen: View {
   @EnvironmentObject var currentEditor: Editor
   @State private var scale: CGFloat = 1.0
-  var scaleMode: ScaleMode = .fixed
+    var scaleMode: ScaleMode = .draggable
+    
   
   @State var selectedPhotos: [PhotosPickerItem] = []
   

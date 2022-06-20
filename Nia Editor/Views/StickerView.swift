@@ -94,7 +94,7 @@ struct StickerView: View {
         avPlayer.play()
       }
     }
-    
+
     .frame(width: mediaAsset.frame.width,
            height: mediaAsset.frame.height,
            alignment: .topLeading)
@@ -102,7 +102,9 @@ struct StickerView: View {
     .rotationEffect(mediaAsset.rotation)
     .offset(mediaAsset.offset)
     .position(x: mediaAsset.frame.midX, y: mediaAsset.frame.midY)
+      
     .gesture(allGestures)
+      
     .animation(Animation.easeInOut(duration: 0.15), value: mediaAsset.offset)
     .animation(Animation.easeInOut(duration: 0.15), value: mediaAsset.scale)
     .animation(Animation.easeInOut(duration: 0.15), value: mediaAsset.rotation)
