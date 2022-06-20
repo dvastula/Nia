@@ -103,5 +103,8 @@ struct StickerView: View {
     .offset(mediaAsset.offset)
     .position(x: mediaAsset.frame.midX, y: mediaAsset.frame.midY)
     .gesture(allGestures)
+    .animation(Animation.easeInOut(duration: 0.15), value: mediaAsset.offset)
+    .animation(Animation.easeInOut(duration: 0.15), value: mediaAsset.scale)
+    .animation(Animation.easeInOut(duration: 0.15), value: mediaAsset.rotation)
   }
 }
