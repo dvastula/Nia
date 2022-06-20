@@ -8,7 +8,7 @@
 import SwiftUI
 
 let floatingButtonRadius: CGFloat = 35
-let customAccentColor: Color = Color(#colorLiteral(red: 0.2549019754, green: 0.2745098174, blue: 0.3019607961, alpha: 1))
+let customAccentColor: Color = Color(#colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1))
 
 /// View with two buttons
 /// Should be always be a last child in ZStack

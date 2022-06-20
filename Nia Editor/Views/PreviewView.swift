@@ -29,6 +29,6 @@ struct PreviewView: View {
            alignment: .topLeading)
     
     .background(previewBackground)
-    .clipped()
+//    .clipped()
   }
 }
