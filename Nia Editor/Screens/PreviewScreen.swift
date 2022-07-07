@@ -10,24 +10,17 @@ import AVKit
 import PhotosUI
 import Photos
 
-enum ScaleMode {
-  case fixed,
-       draggable
-}
-
 struct PreviewScreen: View {
   @EnvironmentObject var currentEditor: Editor
   @State private var scale: CGFloat = 1.0
-    var scaleMode: ScaleMode = .draggable
-    
-  
   @State var selectedPhotos: [PhotosPickerItem] = []
-  
+  @State var lastTimeImported: Date = Date()
+
   var body: some View {
       ZStack {
         GeometryReader { geometry in
 
-          ScrollView(scaleMode == .fixed ? [] : [.horizontal, .vertical], showsIndicators: true) {
+          ScrollView([], showsIndicators: true) {
             // Preview component with content itself
             
             PreviewView(currentEditor: _currentEditor)
@@ -40,74 +33,73 @@ struct PreviewScreen: View {
                 y: currentEditor.size.height / 2)
           }
           .onAppear() {
-//            if geometry.size < currentEditor.size {
-              scale = currentEditor.size.aspectFitRatio(inside: geometry.size)
-//            }
+            scale = currentEditor.size.aspectFitRatio(inside: geometry.size)
           }
           .onChange(of: geometry.size) { newSize in
-//            if newSize < currentEditor.size {
-              scale = currentEditor.size.aspectFitRatio(inside: newSize)
-//            }
+            scale = currentEditor.size.aspectFitRatio(inside: newSize)
           }
         }
 
-        FloatPanel() {
-          if self.currentEditor.assets.count > 0 {
+        FloatPanel(.bottomLeading) {
+          
+          Button {} label: {
+            PhotosPicker(selection: $selectedPhotos) {
+              Image(systemName: "plus")
+                .font(.largeTitle)
+            }
+          }
+          .buttonStyle(FloatButton())
+          
+          if !currentEditor.layers.isEmpty {
             Button {
               withAnimation { () -> () in
-                self.currentEditor.removeAll()
+                currentEditor.removeAll()
               }
             } label: {
               Image(systemName: "trash.fill")
                 .font(.largeTitle)
-                .foregroundColor(.white)
             }
             .buttonStyle(FloatButton())
-            .padding(.bottom, 5)
           }
-          
-          Button {
-            withAnimation { () -> () in
-              self.currentEditor.removeAll()
-            }
-          } label: {
-            PhotosPicker(selection: $selectedPhotos) {
-              Image(systemName: "plus")
-                .font(.largeTitle)
-                .foregroundColor(.white)
-            }
-            .onChange(of: selectedPhotos) { newItems in
-              for item in newItems {
-                
-                Task {
-                  if let data = try? await item.loadTransferable(type: Data.self) {
-                    
-                    if let uiImage = UIImage(data: data) {
-                      print("Image or Animation imported")
-                      
-                      // FaceRecognizer().process(image: uiImage.cgImage!)
-                      let randomInt = Int.random(in: 3...9)
-                      
-                      let newMedia = ImageAsset()
-                      newMedia.frame = CGRect(x: 10 * randomInt,
-                                              y: 100 * randomInt,
-                                              width: 100 * randomInt,
-                                              height: 100 * randomInt)
-                      newMedia.image = Image(uiImage: uiImage)
-                      
-                      withAnimation { () -> () in
-                        currentEditor.add(mediaAsset: newMedia)
-                      }
-                    }
-                  }
-                }
-              }
-              
-              selectedPhotos = []
-            }
-          }
-          .buttonStyle(FloatButton())
+        }
+        .padding()
+
+      }
+      .onChange(of: selectedPhotos) { newItems in
+        // Stupid hack because onChange is called million times with same values
+        if Int(Date().timeIntervalSince(lastTimeImported)) < 1 {
+          print("onChange was fired too fast, skip")
+          return
+        }
+        
+        lastTimeImported = Date()
+        
+        Task {
+          try await onImageSelect(newItems)
         }
       }
+  }
+  
+  private func onImageSelect(_ newItems: [PhotosPickerItem]) async throws {
+      
+    for item in newItems {
+      
+      let newAsset = try await Importer.import(item)
+      
+      let randomInt = Int.random(in: 3...9)
+      newAsset.frame = CGRect(x: 10 * randomInt,
+                              y: 100 * randomInt,
+                              width: 100 * randomInt,
+                              height: 100 * randomInt)
+      
+      let newLayer = Layer().add(newAsset)
+      
+      withAnimation { () -> () in
+        currentEditor.add(newLayer)
+      }
+      
+    }
+    
+    selectedPhotos = []
   }
 }

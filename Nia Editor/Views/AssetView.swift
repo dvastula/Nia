@@ -8,8 +8,8 @@
 import SwiftUI
 import AVKit
 
-struct StickerView: View {
-  @ObservedObject var mediaAsset: MediaAsset
+struct AssetView: View {
+  @ObservedObject var mediaAsset: Asset
   @State private var avPlayer: AVPlayer = AVPlayer()
   
   @State private var offset: CGSize = .zero
@@ -47,45 +47,45 @@ struct StickerView: View {
     
     VStack {
       switch mediaAsset {
-        case is ImageAsset:
-          mediaAsset.image
-            .resizable()
-            .scaledToFit()
-
-        case is VideoAsset:
-//          if let url = (avPlayer.currentItem?.asset as? AVURLAsset)?.url {
-//            VideoPlayer2(videoUrl: url)
-//          }
-//          
-         VideoPlayer(player: avPlayer)
-        default:
-          Color.red
+      case is ImageAsset:
+        mediaAsset.image
+          .resizable()
+          .scaledToFit()
+        
+      case is VideoAsset:
+        //          if let url = (avPlayer.currentItem?.asset as? AVURLAsset)?.url {
+        //            VideoPlayer2(videoUrl: url)
+        //          }
+        //
+        VideoPlayer(player: avPlayer)
+      default:
+        Color.red
       }
     }
     
-//    ShareLink(
-//      item: mediaAsset.image,
-//      subject: Text("Cool Photo"),
-//      message: Text("Check it out!"),
-//      preview: SharePreview(
-//        "sup",
-//        image: mediaAsset.image))
+    //    ShareLink(
+    //      item: mediaAsset.image,
+    //      subject: Text("Cool Photo"),
+    //      message: Text("Check it out!"),
+    //      preview: SharePreview(
+    //        "sup",
+    //        image: mediaAsset.image))
     
-//    .contentShape(Rectangle())
-//    .contextMenu {
-//      Button {
-//        print("Change country setting")
-//      } label: {
-//        Label("Choose Country", systemImage: "globe")
-//      }
-//
-//      Button {
-//        print("Enable geolocation")
-//      } label: {
-//        Label("Detect Location", systemImage: "location.circle")
-//      }
-//    }
-
+    //    .contentShape(Rectangle())
+    //    .contextMenu {
+    //      Button {
+    //        print("Change country setting")
+    //      } label: {
+    //        Label("Choose Country", systemImage: "globe")
+    //      }
+    //
+    //      Button {
+    //        print("Enable geolocation")
+    //      } label: {
+    //        Label("Detect Location", systemImage: "location.circle")
+    //      }
+    //    }
+    
     .onAppear {
       if let videoAsset = mediaAsset as? VideoAsset {
         let item = AVPlayerItem(asset: videoAsset.avAsset)
@@ -94,7 +94,7 @@ struct StickerView: View {
         avPlayer.play()
       }
     }
-
+    
     .frame(width: mediaAsset.frame.width,
            height: mediaAsset.frame.height,
            alignment: .topLeading)
@@ -102,9 +102,9 @@ struct StickerView: View {
     .rotationEffect(mediaAsset.rotation)
     .offset(mediaAsset.offset)
     .position(x: mediaAsset.frame.midX, y: mediaAsset.frame.midY)
-      
+    
     .gesture(allGestures)
-      
+    
     .animation(Animation.easeInOut(duration: 0.15), value: mediaAsset.offset)
     .animation(Animation.easeInOut(duration: 0.15), value: mediaAsset.scale)
     .animation(Animation.easeInOut(duration: 0.15), value: mediaAsset.rotation)

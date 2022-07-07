@@ -8,7 +8,7 @@
 import SwiftUI
 import AVKit
 
-class MediaAsset: Identifiable, ObservableObject {
+class Asset: Identifiable, ObservableObject {
   @Published var duration: Double = 0
   @Published var frame: CGRect!
   @Published var offset: CGSize = .zero
@@ -20,21 +20,21 @@ class MediaAsset: Identifiable, ObservableObject {
   var color: Color = colors.randomElement()!
 }
 
-class VideoAsset: MediaAsset {
+class VideoAsset: Asset {
   var avAsset: AVAsset
   
   init(from avAsset: AVAsset) async {
     self.avAsset = avAsset
     super.init()
 
-    self.duration = try! await avAsset.load(.duration).seconds
-    self.frame = CGRect(x: 100, y: 100, width: 200, height: 200)
+    duration = try! await avAsset.load(.duration).seconds
+    frame = CGRect(x: 100, y: 100, width: 200, height: 200)
     
     if let previewImage = await avAsset.preview() {
-      self.image = previewImage
+      image = previewImage
     }
   }
 }
 
-class ImageAsset: MediaAsset {
+class ImageAsset: Asset {
 }

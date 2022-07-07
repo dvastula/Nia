@@ -8,26 +8,103 @@
 import SwiftUI
 
 let floatingButtonRadius: CGFloat = 40
-let customAccentColor: Color = Color(#colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1))
 
 /// View with two buttons
 /// Should be always be a last child in ZStack
 struct FloatPanel<Content: View>: View {
   let content: Content
+  let position: Alignment
+  let direction: Axis.Set
   
-  init(@ViewBuilder builder: () -> Content) {
-    self.content = builder()
+  init(_ position: Alignment, _ direction: Axis.Set = .vertical, @ViewBuilder builder: () -> Content) {
+    content = builder()
+    self.position = position
+    self.direction = direction
   }
-  
-  var body: some View {
-    HStack {
-      VStack {
-        Spacer()
-        self.content
-      }
-      .padding()
       
-      Spacer()
+  var body: some View {
+                
+    switch position {
+    case .topLeading:
+      HStack {
+        VStack {
+          if direction == .vertical {
+            content
+          } else {
+            HStack {
+              content
+            }
+          }
+          
+          Spacer()
+        }
+        
+        Spacer()
+      }
+      
+    case .topTrailing:
+      HStack {
+        Spacer()
+        
+        VStack {
+          if direction == .vertical {
+            content
+          } else {
+            HStack {
+              content
+            }
+          }
+          Spacer()
+        }
+      }
+      
+    case .bottomLeading:
+      HStack {
+        VStack {
+          Spacer()
+          if direction == .vertical {
+            content
+          } else {
+            HStack {
+              content
+            }
+          }
+        }
+        
+        Spacer()
+      }
+      
+    case .bottomTrailing:
+      HStack {
+        Spacer()
+
+        VStack {
+          Spacer()
+          if direction == .vertical {
+            content
+          } else {
+            HStack {
+              content
+            }
+          }
+        }
+      }
+      
+    default:
+      HStack {
+        VStack {
+          Spacer()
+          if direction == .vertical {
+            content
+          } else {
+            HStack {
+              content
+            }
+          }
+        }
+        
+        Spacer()
+      }
     }
   }
 }
@@ -38,9 +115,12 @@ struct FloatButton: ButtonStyle {
   func makeBody(configuration: Configuration) -> some View {
     configuration
       .label
+      .foregroundColor(.primary)
       .padding()
-      .background(customAccentColor)
+      .frame(width: floatingButtonRadius * 2, height: floatingButtonRadius * 2)
+      .background(.ultraThinMaterial)
       .cornerRadius(floatingButtonRadius)
       .hoverEffect(.lift)
+      .scaleEffect(configuration.isPressed ? 0.9 : 1)
   }
 }

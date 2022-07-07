@@ -14,16 +14,22 @@ struct PreviewView: View {
   
   var body: some View {
     ZStack {
-      ForEach(currentEditor.assets) { mediaAsset in
-        StickerView(mediaAsset: mediaAsset)
-          .onTapGesture(count: 2) {
-            withAnimation { () -> () in
-              currentEditor.remove(mediaAsset: mediaAsset)
+      ForEach(currentEditor.layers) { layer in
+        ForEach(layer.assets) { asset in
+          
+          AssetView(mediaAsset: asset)
+            .onTapGesture(count: 2) {
+              withAnimation { () -> () in
+                layer.remove(asset)
+                
+                if layer.assets.count == 0 {
+                  currentEditor.layers.removeAll { $0.id == layer.id }
+                }
+              }
             }
-          }
+        }
       }
     }
-    .background(Color.red)
     .frame(width: currentEditor.size.width,
            height: currentEditor.size.height,
            alignment: .topLeading)
