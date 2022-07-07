@@ -16,21 +16,24 @@ struct PreviewScreen: View {
   @State var selectedPhotos: [PhotosPickerItem] = []
   @State var lastTimeImported: Date = Date()
 
+  var mainView: some View {
+    PreviewView(currentEditor: _currentEditor)
+      .scaleEffect(scale)
+      .frame(width: currentEditor.size.width * scale,
+             height: currentEditor.size.height * scale,
+             alignment: .bottomTrailing)
+      .position(
+        x: currentEditor.size.width / 2,
+        y: currentEditor.size.height / 2)
+  }
+
   var body: some View {
       ZStack {
         GeometryReader { geometry in
 
           ScrollView([], showsIndicators: true) {
             // Preview component with content itself
-            
-            PreviewView(currentEditor: _currentEditor)
-              .scaleEffect(scale)
-              .frame(width: currentEditor.size.width * scale,
-                     height: currentEditor.size.height * scale,
-                     alignment: .bottomTrailing)
-              .position(
-                x: currentEditor.size.width / 2,
-                y: currentEditor.size.height / 2)
+            mainView
           }
           .onAppear() {
             scale = currentEditor.size.aspectFitRatio(inside: geometry.size)
@@ -39,18 +42,28 @@ struct PreviewScreen: View {
             scale = currentEditor.size.aspectFitRatio(inside: newSize)
           }
         }
-
+        
+        
+        // Action panel
+        
         FloatPanel(.bottomLeading) {
-          
-          Button {} label: {
-            PhotosPicker(selection: $selectedPhotos) {
-              Image(systemName: "plus")
-                .font(.largeTitle)
-            }
-          }
-          .buttonStyle(FloatButton())
-          
+                              
           if !currentEditor.layers.isEmpty {
+            
+            // Share button
+            
+            Button {} label: {
+              ShareLink(
+                item: Exporter.export(mainView.environmentObject(currentEditor))) {
+                    Image(systemName: "square.and.arrow.up")
+                      .font(.largeTitle)
+                  }
+            }
+            .buttonStyle(FloatButton())
+
+            
+            // Remove all button
+
             Button {
               withAnimation { () -> () in
                 currentEditor.removeAll()
@@ -61,6 +74,16 @@ struct PreviewScreen: View {
             }
             .buttonStyle(FloatButton())
           }
+          
+          // Add asset button
+          
+          Button {} label: {
+            PhotosPicker(selection: $selectedPhotos) {
+              Image(systemName: "plus")
+                .font(.largeTitle)
+            }
+          }
+          .buttonStyle(FloatButton())
         }
         .padding()
 
