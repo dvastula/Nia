@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		138240FE2878356900871A9A /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138240FD2878356900871A9A /* ExportView.swift */; };
 		138ED1C12877246C00AB9347 /* Exporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138ED1C02877246C00AB9347 /* Exporter.swift */; };
 		13ED9DAA2876D335008CE82B /* Importer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13ED9DA92876D335008CE82B /* Importer.swift */; };
 		13ED9DAC2876E786008CE82B /* Layer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13ED9DAB2876E786008CE82B /* Layer.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		138240FD2878356900871A9A /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
 		138ED1C02877246C00AB9347 /* Exporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exporter.swift; sourceTree = "<group>"; };
 		13ED9DA92876D335008CE82B /* Importer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Importer.swift; sourceTree = "<group>"; };
 		13ED9DAB2876E786008CE82B /* Layer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layer.swift; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				976D72B0255DE3D700C44889 /* PreviewScreen.swift */,
+				138240FD2878356900871A9A /* ExportView.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -209,6 +212,7 @@
 				977E8C862559AE9C00A94B58 /* AssetView.swift in Sources */,
 				13ED9DAC2876E786008CE82B /* Layer.swift in Sources */,
 				977E8C822559AC4E00A94B58 /* FloatPanel.swift in Sources */,
+				138240FE2878356900871A9A /* ExportView.swift in Sources */,
 				97C8692A255F2A4A00D9C1F3 /* PreviewView.swift in Sources */,
 				97C8692D255F36A100D9C1F3 /* Asset.swift in Sources */,
 				970193992559A7DB0009FB68 /* Samples.swift in Sources */,
@@ -344,15 +348,19 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Nia Editor/Preview Content\"";
 				DEVELOPMENT_TEAM = BZ82DRDZY8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Nia Editor/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = NiaEditor;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.graphics-design";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.damirka.Nia-Editor";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -366,15 +374,19 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Nia Editor/Preview Content\"";
 				DEVELOPMENT_TEAM = BZ82DRDZY8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Nia Editor/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = NiaEditor;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.graphics-design";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.damirka.Nia-Editor";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

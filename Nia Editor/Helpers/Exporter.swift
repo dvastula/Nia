@@ -20,11 +20,12 @@ class Exporter {
     renderer.scale = UIScreen.main.scale
     
     let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-    let fileURL = documentsURL.appendingPathComponent("exported.png")
+    let randomPrefix = UUID().uuidString.prefix(8)
+    let fileURL = documentsURL.appendingPathComponent(randomPrefix + ".png")
         
     if let image = renderer.uiImage {
       if let data = image.pngData() {
-        try? data.write(to: fileURL)
+        try! data.write(to: fileURL)
       }
     }
     

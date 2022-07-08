@@ -13,8 +13,11 @@ import Photos
 struct PreviewScreen: View {
   @EnvironmentObject var currentEditor: Editor
   @State private var scale: CGFloat = 1.0
-  @State var selectedPhotos: [PhotosPickerItem] = []
-  @State var lastTimeImported: Date = Date()
+  @State private var selectedPhotos: [PhotosPickerItem] = []
+  @State private var lastTimeImported: Date = Date()
+ 
+  @State var lastSnapshotURL: URL?
+  @State private var showingExportSheet = false
 
   var mainView: some View {
     PreviewView(currentEditor: _currentEditor)
@@ -52,12 +55,14 @@ struct PreviewScreen: View {
             
             // Share button
             
-            Button {} label: {
-              ShareLink(
-                item: Exporter.export(mainView.environmentObject(currentEditor))) {
-                    Image(systemName: "square.and.arrow.up")
-                      .font(.largeTitle)
-                  }
+            Button {
+              Task {
+                lastSnapshotURL = Exporter.export(mainView.environmentObject(currentEditor))
+                showingExportSheet.toggle()
+              }
+            } label: {
+              Image(systemName: "square.and.arrow.up")
+                .font(.largeTitle)
             }
             .buttonStyle(FloatButton())
 
@@ -99,6 +104,18 @@ struct PreviewScreen: View {
         
         Task {
           try await onImageSelect(newItems)
+        }
+      }
+      .sheet(isPresented: $showingExportSheet) {
+        
+        if let lastSnapshotURL {
+          let uiImage = UIImage(contentsOfFile: lastSnapshotURL.path())!
+          let image = Image(uiImage:uiImage)
+          
+          ExportView(
+            showing: $showingExportSheet,
+            image: image,
+            fileURL: lastSnapshotURL)
         }
       }
   }

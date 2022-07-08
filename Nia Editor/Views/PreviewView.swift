@@ -34,7 +34,7 @@ struct PreviewView: View {
            height: currentEditor.size.height,
            alignment: .topLeading)
     
-    .background(previewBackground)
+    .background(Color.white)
 //    .clipped()
   }
 }

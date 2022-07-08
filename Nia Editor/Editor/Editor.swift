@@ -9,7 +9,7 @@ import SwiftUI
 
 class Editor: Identifiable, ObservableObject {
   var id = UUID()
-  @Published var size: CGSize = CGSize(width: 1000, height: 2000)
+  @Published var size: CGSize = CGSize(width: 1080, height: 1920)
   @Published var layers: [Layer] = []
   
   @discardableResult
