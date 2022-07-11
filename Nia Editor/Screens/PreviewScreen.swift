@@ -12,39 +12,84 @@ import Photos
 
 struct PreviewScreen: View {
   @EnvironmentObject var currentEditor: Editor
-  @State private var scale: CGFloat = 1.0
   @State private var selectedPhotos: [PhotosPickerItem] = []
   @State private var lastTimeImported: Date = Date()
  
   @State var lastSnapshotURL: URL?
   @State private var showingExportSheet = false
+    
+    @State private var tempScale: CGFloat = 1.0
+    @State private var tempOffset: CGSize = .zero
+    @State private var tempRotation: Angle = .degrees(0)
+
+    @State private var scale: CGFloat = 1.0
+    @State private var offset: CGSize = .zero
+    @State private var rotation: Angle = .degrees(0)
 
   var mainView: some View {
     PreviewView(currentEditor: _currentEditor)
-      .scaleEffect(scale)
-      .frame(width: currentEditor.size.width * scale,
-             height: currentEditor.size.height * scale,
-             alignment: .bottomTrailing)
-      .position(
-        x: currentEditor.size.width / 2,
-        y: currentEditor.size.height / 2)
   }
 
   var body: some View {
-      ZStack {
-        GeometryReader { geometry in
+      let rotationGesture = RotationGesture(minimumAngleDelta: .degrees(1))
+        .onChanged { angle in
+          rotation = angle + tempRotation
+        }
+        .onEnded { angle in
+            tempRotation = rotation
+        }
+      
+      let dragGesture = DragGesture()
+        .onChanged { gesture in
+          offset = gesture.translation + tempOffset
+        }
+        .onEnded { gesture in
+            tempOffset = offset
+        }
+      
+      let scaleGesture = MagnificationGesture()
+        .onChanged { magnification in
+          scale = magnification * tempScale
+        }
+        .onEnded { angle in
+            tempScale = scale
+        }
+      
+      let allGestures = dragGesture
+        .simultaneously(with: rotationGesture)
+        .simultaneously(with: scaleGesture)
 
-          ScrollView([], showsIndicators: true) {
+      ZStack {
+          GeometryReader { geometry in
+              
             // Preview component with content itself
             mainView
+              .onAppear() {
+                  tempScale = currentEditor.size.aspectFitRatio(inside: geometry.size)
+                  tempOffset = geometry.size / 2
+                  
+                  scale = tempScale
+                  offset = tempOffset
+              }
+//                  .onChange(of: geometry.size) { newSize in
+//                    scale = currentEditor.size.aspectFitRatio(inside: newSize)
+//                  }
+
+              .frame(width: currentEditor.size.width,
+                     height: currentEditor.size.height)
+              .scaleEffect(scale)
+              .rotationEffect(rotation)
+              .offset(offset)
+              .position(
+                x: 0,
+                y: 0)
+              
+              .gesture(allGestures)
+              
+              .animation(Animation.easeInOut(duration: 0.15), value: offset)
+              .animation(Animation.easeInOut(duration: 0.15), value: scale)
+              .animation(Animation.easeInOut(duration: 0.15), value: rotation)
           }
-          .onAppear() {
-            scale = currentEditor.size.aspectFitRatio(inside: geometry.size)
-          }
-          .onChange(of: geometry.size) { newSize in
-            scale = currentEditor.size.aspectFitRatio(inside: newSize)
-          }
-        }
         
         
         // Action panel

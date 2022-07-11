@@ -22,6 +22,16 @@ func > (left: CGSize, right: CGSize) -> Bool {
   return left.width > right.width && left.height > right.height
 }
 
+func / (left: CGSize, divider: Double) -> CGSize {
+  return CGSize(width: left.width / divider,
+                height: left.height / divider)
+}
+
+func * (left: CGSize, divider: Double) -> CGSize {
+  return CGSize(width: left.width * divider,
+                height: left.height * divider)
+}
+
 
 extension CGSize {
   

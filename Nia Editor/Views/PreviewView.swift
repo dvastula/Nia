@@ -33,7 +33,7 @@ struct PreviewView: View {
     .frame(width: currentEditor.size.width,
            height: currentEditor.size.height,
            alignment: .topLeading)
-    
+    .border(.white)
     .background(Color.white)
 //    .clipped()
   }
