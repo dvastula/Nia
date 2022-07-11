@@ -36,6 +36,19 @@ struct PreviewScreen: View {
         rotation = angle + tempRotation
       }
       .onEnded { angle in
+        
+        let stickyAngles: [Double] = [0, 45, 90, 135, 180, 225, 270, 315]
+        let snapGap = 10.0
+        
+        // Make it work with negative values too
+        let sign = rotation.degrees / abs(rotation.degrees)
+        
+        for stickyAngle in stickyAngles {
+          if (stickyAngle-snapGap...stickyAngle+snapGap).contains(abs(rotation.degrees)) {
+            rotation.degrees = sign * stickyAngle
+          }
+        }
+        
         tempRotation = rotation
       }
     
