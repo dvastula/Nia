@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Layer: Identifiable, ObservableObject {
+class Layer: Identifiable, ObservableObject, Equatable {
   var id = UUID()
   @Published var assets: [Asset] = []
   
@@ -24,5 +24,9 @@ class Layer: Identifiable, ObservableObject {
     }
     
     return self
+  }
+  
+  static func == (lhs: Layer, rhs: Layer) -> Bool {
+      return lhs.id == rhs.id
   }
 }

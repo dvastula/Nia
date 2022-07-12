@@ -26,6 +26,32 @@ struct PreviewView: View {
               }
             }
         }
+        .contextMenu {
+          Button {
+            withAnimation { () -> () in
+              currentEditor.move(layer, .up)
+            }
+          } label: {
+            Label("Layer up", systemImage: "arrow.up")
+          }
+          
+          Button {
+            withAnimation { () -> () in
+              currentEditor.move(layer, .down)
+            }
+          } label: {
+            Label("Layer down", systemImage: "arrow.down")
+          }
+          
+          Button(role: .destructive) {
+            withAnimation { () -> () in
+              currentEditor.remove(layer)
+            }
+          } label: {
+            Label("Remove", systemImage: "trash.fill")
+          }
+        }
+        
       }
     }
     .frame(
@@ -33,8 +59,8 @@ struct PreviewView: View {
       height: currentEditor.size.height,
       alignment: .topLeading)
     
-//    .border(.white)
+    //    .border(.white)
     .background(Color.white)
-//    .clipped()
+    //    .clipped()
   }
 }

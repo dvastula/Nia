@@ -35,30 +35,7 @@ struct AssetView: View {
         Color.red
       }
     }
-    
-    //    ShareLink(
-    //      item: mediaAsset.image,
-    //      subject: Text("Cool Photo"),
-    //      message: Text("Check it out!"),
-    //      preview: SharePreview(
-    //        "sup",
-    //        image: mediaAsset.image))
-    
-    //    .contentShape(Rectangle())
-    //    .contextMenu {
-    //      Button {
-    //        print("Change country setting")
-    //      } label: {
-    //        Label("Choose Country", systemImage: "globe")
-    //      }
-    //
-    //      Button {
-    //        print("Enable geolocation")
-    //      } label: {
-    //        Label("Detect Location", systemImage: "location.circle")
-    //      }
-    //    }
-    
+
     .onAppear {
       if let videoAsset = mediaAsset as? VideoAsset {
         let item = AVPlayerItem(asset: videoAsset.avAsset)
