@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		138240FE2878356900871A9A /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138240FD2878356900871A9A /* ExportView.swift */; };
 		138ED1C12877246C00AB9347 /* Exporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 138ED1C02877246C00AB9347 /* Exporter.swift */; };
+		13CF17EC287CEC8A00FDB44D /* Movable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CF17EB287CEC8A00FDB44D /* Movable.swift */; };
 		13ED9DAA2876D335008CE82B /* Importer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13ED9DA92876D335008CE82B /* Importer.swift */; };
 		13ED9DAC2876E786008CE82B /* Layer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13ED9DAB2876E786008CE82B /* Layer.swift */; };
 		970193992559A7DB0009FB68 /* Samples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 970193982559A7DB0009FB68 /* Samples.swift */; };
@@ -28,6 +29,7 @@
 /* Begin PBXFileReference section */
 		138240FD2878356900871A9A /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
 		138ED1C02877246C00AB9347 /* Exporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exporter.swift; sourceTree = "<group>"; };
+		13CF17EB287CEC8A00FDB44D /* Movable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movable.swift; sourceTree = "<group>"; };
 		13ED9DA92876D335008CE82B /* Importer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Importer.swift; sourceTree = "<group>"; };
 		13ED9DAB2876E786008CE82B /* Layer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layer.swift; sourceTree = "<group>"; };
 		970193982559A7DB0009FB68 /* Samples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Samples.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				977E8C852559AE9C00A94B58 /* AssetView.swift */,
 				977E8C812559AC4E00A94B58 /* FloatPanel.swift */,
 				97C86929255F2A4A00D9C1F3 /* PreviewView.swift */,
+				13CF17EB287CEC8A00FDB44D /* Movable.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -213,6 +216,7 @@
 				13ED9DAC2876E786008CE82B /* Layer.swift in Sources */,
 				977E8C822559AC4E00A94B58 /* FloatPanel.swift in Sources */,
 				138240FE2878356900871A9A /* ExportView.swift in Sources */,
+				13CF17EC287CEC8A00FDB44D /* Movable.swift in Sources */,
 				97C8692A255F2A4A00D9C1F3 /* PreviewView.swift in Sources */,
 				97C8692D255F36A100D9C1F3 /* Asset.swift in Sources */,
 				970193992559A7DB0009FB68 /* Samples.swift in Sources */,

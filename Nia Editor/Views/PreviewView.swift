@@ -7,8 +7,6 @@
 
 import SwiftUI
 
-fileprivate let previewBackground = colors.randomElement()!
-
 struct PreviewView: View {
   @EnvironmentObject var currentEditor: Editor
   
@@ -30,10 +28,12 @@ struct PreviewView: View {
         }
       }
     }
-    .frame(width: currentEditor.size.width,
-           height: currentEditor.size.height,
-           alignment: .topLeading)
-    .border(.white)
+    .frame(
+      width: currentEditor.size.width,
+      height: currentEditor.size.height,
+      alignment: .topLeading)
+    
+//    .border(.white)
     .background(Color.white)
 //    .clipped()
   }

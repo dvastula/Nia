@@ -17,33 +17,6 @@ struct AssetView: View {
   @State private var scale: CGFloat = 1.0
   
   var body: some View {
-    let rotationGesture = RotationGesture(minimumAngleDelta: .degrees(1))
-      .onChanged { angle in
-        mediaAsset.rotation = angle + rotation
-      }
-      .onEnded { angle in
-        rotation = mediaAsset.rotation
-      }
-    
-    let dragGesture = DragGesture()
-      .onChanged { gesture in
-        mediaAsset.offset = gesture.translation + offset
-      }
-      .onEnded { gesture in
-        offset = mediaAsset.offset
-      }
-    
-    let scaleGesture = MagnificationGesture()
-      .onChanged { magnification in
-        mediaAsset.scale = magnification * scale
-      }
-      .onEnded { angle in
-        scale = mediaAsset.scale
-      }
-    
-    let allGestures = dragGesture
-      .simultaneously(with: rotationGesture)
-      .simultaneously(with: scaleGesture)
     
     VStack {
       switch mediaAsset {
@@ -103,8 +76,12 @@ struct AssetView: View {
     .offset(mediaAsset.offset)
     .position(x: mediaAsset.frame.midX, y: mediaAsset.frame.midY)
     
-    .gesture(allGestures)
-    
+    .modifier(Movable(
+      scale: $mediaAsset.scale,
+      offset: $mediaAsset.offset,
+      rotation: $mediaAsset.rotation)
+    )
+
     .animation(Animation.easeInOut(duration: 0.15), value: mediaAsset.offset)
     .animation(Animation.easeInOut(duration: 0.15), value: mediaAsset.scale)
     .animation(Animation.easeInOut(duration: 0.15), value: mediaAsset.rotation)

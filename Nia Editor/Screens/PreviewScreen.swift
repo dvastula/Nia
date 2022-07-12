@@ -18,10 +18,6 @@ struct PreviewScreen: View {
   @State var lastSnapshotURL: URL?
   @State private var showingExportSheet = false
   
-  @State private var tempScale: CGFloat = 1.0
-  @State private var tempOffset: CGSize = .zero
-  @State private var tempRotation: Angle = .degrees(0)
-  
   @State private var scale: CGFloat = 1.0
   @State private var offset: CGSize = .zero
   @State private var rotation: Angle = .degrees(0)
@@ -31,89 +27,64 @@ struct PreviewScreen: View {
   }
   
   var body: some View {
-    let rotationGesture = RotationGesture(minimumAngleDelta: .degrees(1))
-      .onChanged { angle in
-        rotation = angle + tempRotation
-      }
-      .onEnded { angle in
-        
-        let stickyAngles: [Double] = [0, 45, 90, 135, 180, 225, 270, 315]
-        let snapGap = 10.0
-        
-        // Make it work with negative values too
-        let sign = rotation.degrees / abs(rotation.degrees)
-        
-        for stickyAngle in stickyAngles {
-          if (stickyAngle-snapGap...stickyAngle+snapGap).contains(abs(rotation.degrees)) {
-            rotation.degrees = sign * stickyAngle
-          }
-        }
-        
-        tempRotation = rotation
-      }
-    
-    let dragGesture = DragGesture()
-      .onChanged { gesture in
-        offset = gesture.translation + tempOffset
-      }
-      .onEnded { gesture in
-        tempOffset = offset
-      }
-    
-    let scaleGesture = MagnificationGesture()
-      .onChanged { magnification in
-        scale = magnification * tempScale
-      }
-      .onEnded { angle in
-        tempScale = scale
-      }
-    
-    let allGestures = dragGesture
-      .simultaneously(with: rotationGesture)
-      .simultaneously(with: scaleGesture)
     
     ZStack {
+      // ZStack is required for FloatPanels
+      
       GeometryReader { geometry in
+        let panelsPadding: Double = geometry.size.width < 500 ? 6 : 10
         
-        ZStack {
-          // Preview component with content itself
-          mainView
-            .onAppear() {
-              tempScale = currentEditor.size.aspectFitRatio(inside: geometry.size)
-              tempOffset = geometry.size / 2
-              
-              scale = tempScale
-              offset = tempOffset
+        // Preview component with content itself
+        mainView
+          .scaleEffect(scale)
+          .rotationEffect(rotation)
+          .offset(offset)
+        
+        // I don't know why
+          .position(x: 0, y: 0)
+        
+        // Background filled the view
+          .frame(
+            maxWidth: .infinity,
+            maxHeight: .infinity,
+            alignment: .topLeading
+          )
+          .background(Color.gray.opacity(0.3))
+        
+        // Fit Preview in screen
+          .onAppear() {
+            scale = currentEditor.size.aspectFitRatio(inside: geometry.size)
+            offset = geometry.size / 2
+          }
+        
+        // Move scale rotate
+          .modifier(Movable(
+            scale: $scale,
+            offset: $offset,
+            rotation: $rotation)
+          )
+        
+        
+        // Action panels
+        
+        FloatPanel(.topLeading) {
+          if !currentEditor.layers.isEmpty {
+            // Remove all button
+            
+            Button {
+              withAnimation { () -> () in
+                currentEditor.removeAll()
+              }
+            } label: {
+              Image(systemName: "trash.fill")
+                .font(.largeTitle)
             }
-//            .onChange(of: geometry.size) { newSize in
-//              scale = currentEditor.size.aspectFitRatio(inside: newSize)
-//            }
-          
-            .frame(width: currentEditor.size.width,
-                   height: currentEditor.size.height)
-            .scaleEffect(scale)
-            .rotationEffect(rotation)
-            .offset(offset)
-          
-            .position(
-              x: 0,
-              y: 0)
-          
+            .buttonStyle(FloatButton())
+          }
         }
-        .frame(
-          maxWidth: .infinity,
-          maxHeight: .infinity,
-          alignment: .topLeading
-        )
-        .background(Color.gray.opacity(0.3))
-      }
-      
-      // Action panel
-      
-      FloatPanel(.bottomLeading) {
+        .padding(panelsPadding)
         
-        if !currentEditor.layers.isEmpty {
-          
+        FloatPanel(.topTrailing) {
           // Share button
           
           Button {
@@ -126,41 +97,45 @@ struct PreviewScreen: View {
               .font(.largeTitle)
           }
           .buttonStyle(FloatButton())
+        }
+        .padding(panelsPadding)
+        
+        FloatPanel(.bottomLeading) {
           
-          
-          // Remove all button
+          // Center and fit
           
           Button {
-            withAnimation { () -> () in
-              currentEditor.removeAll()
-            }
+            scale = currentEditor.size.aspectFitRatio(inside: geometry.size)
+            offset = geometry.size / 2
+            rotation = .degrees(0)
           } label: {
-            Image(systemName: "trash.fill")
+            Image(systemName: "arrow.down.forward.and.arrow.up.backward")
               .font(.largeTitle)
           }
           .buttonStyle(FloatButton())
-        }
-        
-        // Add asset button
-        
-        Button {} label: {
-          PhotosPicker(selection: $selectedPhotos) {
-            Image(systemName: "plus")
-              .font(.largeTitle)
+          
+          
+          // Add asset button
+          
+          Button {} label: {
+            PhotosPicker(selection: $selectedPhotos) {
+              Image(systemName: "plus")
+                .font(.largeTitle)
+            }
           }
+          .buttonStyle(FloatButton())
         }
-        .buttonStyle(FloatButton())
+        .padding(panelsPadding)
+        
       }
-      .padding()
       
     }
-    
-    .gesture(allGestures)
     
     .animation(Animation.easeInOut(duration: 0.15), value: offset)
     .animation(Animation.easeInOut(duration: 0.15), value: scale)
     .animation(Animation.easeInOut(duration: 0.15), value: rotation)
     
+    // Import from Photos
     .onChange(of: selectedPhotos) { newItems in
       // Stupid hack because onChange is called million times with same values
       if Int(Date().timeIntervalSince(lastTimeImported)) < 1 {
@@ -174,6 +149,8 @@ struct PreviewScreen: View {
         try await onImageSelect(newItems)
       }
     }
+    
+    // Export
     .sheet(isPresented: $showingExportSheet) {
       
       if let lastSnapshotURL {
