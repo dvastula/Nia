@@ -16,12 +16,18 @@ struct Movable: ViewModifier {
   @State private var tempOffset: CGSize = .zero
   @State private var tempRotation: Angle = .degrees(0)
   
+  @State private var isMoving: Bool = false
+  
   func body(content: Content) -> some View {
+    
     let rotationGesture = RotationGesture(minimumAngleDelta: .degrees(1))
       .onChanged { angle in
+        isMoving = true
         rotation = angle + tempRotation
       }
       .onEnded { angle in
+        isMoving = false
+        
         let snappedAngle = Angle(degrees: snapped(degree: rotation.degrees))
         
         rotation = snappedAngle
@@ -30,17 +36,21 @@ struct Movable: ViewModifier {
     
     let dragGesture = DragGesture()
       .onChanged { gesture in
+        isMoving = true
         offset = gesture.translation + tempOffset
       }
       .onEnded { gesture in
+        isMoving = false
         tempOffset = offset
       }
     
     let scaleGesture = MagnificationGesture()
       .onChanged { magnification in
+        isMoving = true
         scale = magnification * tempScale
       }
       .onEnded { angle in
+        isMoving = false
         tempScale = scale
       }
     
@@ -50,10 +60,12 @@ struct Movable: ViewModifier {
 
     content
       .gesture(allGestures)
-      .onAppear() {
-        tempScale = scale
-        tempOffset = offset
-        tempRotation = rotation
+      .onChange(of: offset) { newValue in
+        if !isMoving {
+          tempScale = scale
+          tempOffset = offset
+          tempRotation = rotation
+        }
       }
   }
   

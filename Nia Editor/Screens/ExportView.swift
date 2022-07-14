@@ -26,7 +26,6 @@ struct ExportView: View {
             showing.toggle()
           } label: {
             Image(systemName: "multiply")
-              .font(.largeTitle)
           }
           .buttonStyle(FloatButton())
           
@@ -38,11 +37,11 @@ struct ExportView: View {
               preview: SharePreview(fileURL.lastPathComponent, image: image)
             ) {
               Image(systemName: "square.and.arrow.up")
-                .font(.largeTitle)
             }
           }
           .buttonStyle(FloatButton())
         }
+        .padding()
       }
     }
 }

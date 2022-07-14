@@ -49,7 +49,7 @@ struct PreviewScreen: View {
             maxHeight: .infinity,
             alignment: .topLeading
           )
-          .background(Color.gray.opacity(0.3))
+          .background(Color(red: 0.3, green: 0.3, blue: 0.3))
         
         // Fit Preview in screen
           .onAppear() {
@@ -77,7 +77,6 @@ struct PreviewScreen: View {
               }
             } label: {
               Image(systemName: "trash.fill")
-                .font(.largeTitle)
             }
             .buttonStyle(FloatButton())
           }
@@ -94,7 +93,6 @@ struct PreviewScreen: View {
             }
           } label: {
             Image(systemName: "square.and.arrow.up")
-              .font(.largeTitle)
           }
           .buttonStyle(FloatButton())
         }
@@ -120,7 +118,6 @@ struct PreviewScreen: View {
           Button {} label: {
             PhotosPicker(selection: $selectedPhotos) {
               Image(systemName: "plus")
-                .font(.largeTitle)
             }
           }
           .buttonStyle(FloatButton())

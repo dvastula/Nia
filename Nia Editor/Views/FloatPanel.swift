@@ -115,11 +115,12 @@ struct FloatButton: ButtonStyle {
   func makeBody(configuration: Configuration) -> some View {
     configuration
       .label
+      .font(.largeTitle)
       .foregroundColor(.primary)
       .padding()
       .frame(width: floatingButtonRadius * 2, height: floatingButtonRadius * 2)
       .background(.ultraThinMaterial)
-      .cornerRadius(floatingButtonRadius)
+      .clipShape(Circle())
       .hoverEffect(.lift)
       .scaleEffect(configuration.isPressed ? 0.9 : 1)
   }
