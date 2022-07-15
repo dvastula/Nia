@@ -15,15 +15,11 @@ class Exporter {
   
   @MainActor
   static func export(_ view: some View) -> URL {
-    
-    let renderer = ImageRenderer(content: view)
-    renderer.scale = UIScreen.main.scale
-    
     let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
     let randomPrefix = UUID().uuidString.prefix(8)
     let fileURL = documentsURL.appendingPathComponent(randomPrefix + ".png")
         
-    if let image = renderer.uiImage {
+    if let image = view.snapshot() {
       if let data = image.pngData() {
         try! data.write(to: fileURL)
       }
@@ -31,5 +27,4 @@ class Exporter {
     
     return fileURL
   }
-  
 }

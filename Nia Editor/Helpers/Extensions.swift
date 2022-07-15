@@ -87,3 +87,13 @@ extension AVAsset {
     }
   }
 }
+
+extension View {
+  @MainActor
+  func snapshot() -> UIImage? {
+    let renderer = ImageRenderer(content: self)
+    renderer.scale = UIScreen.main.scale
+    
+    return renderer.uiImage
+  }
+}

@@ -8,40 +8,31 @@
 import SwiftUI
 
 struct ExportView: View {
-  @Binding var showing: Bool
   var image: Image
-  var fileURL: URL
-
-    var body: some View {
-      ZStack {
-        image
-          .resizable()
-          .scaledToFit()
+  
+  var body: some View {
+    ZStack {
+      image
+        .resizable()
+        .scaledToFit()
+      
+      FloatPanel(.bottomLeading) {
         
-        FloatPanel(.bottomLeading) {
+        // ShareLink button
+        
+        Button {} label: {
+          let randomPrefix = UUID().uuidString.prefix(8)
           
-          // Close button
-          
-          Button {
-            showing.toggle()
-          } label: {
-            Image(systemName: "multiply")
+          ShareLink(
+            item: image,
+            preview: SharePreview(randomPrefix, image: image)
+          ) {
+            Image(systemName: "square.and.arrow.up")
           }
-          .buttonStyle(FloatButton())
-          
-          // ShareLink button
-          
-          Button {} label: {
-            ShareLink(
-              item: image,
-              preview: SharePreview(fileURL.lastPathComponent, image: image)
-            ) {
-              Image(systemName: "square.and.arrow.up")
-            }
-          }
-          .buttonStyle(FloatButton())
         }
-        .padding()
+        .buttonStyle(FloatButton())
       }
+      .padding()
     }
+  }
 }

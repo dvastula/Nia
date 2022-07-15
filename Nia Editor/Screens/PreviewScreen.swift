@@ -15,7 +15,6 @@ struct PreviewScreen: View {
   @State private var selectedPhotos: [PhotosPickerItem] = []
   @State private var lastTimeImported: Date = Date()
   
-  @State var lastSnapshotURL: URL?
   @State private var showingExportSheet = false
   
   @State private var scale: CGFloat = 1.0
@@ -64,7 +63,6 @@ struct PreviewScreen: View {
             rotation: $rotation)
           )
         
-        
         // Action panels
         
         FloatPanel(.topLeading) {
@@ -87,14 +85,12 @@ struct PreviewScreen: View {
           // Share button
           
           Button {
-            Task {
-              lastSnapshotURL = Exporter.export(mainView.environmentObject(currentEditor))
-              showingExportSheet.toggle()
-            }
+            showingExportSheet.toggle()
           } label: {
             Image(systemName: "square.and.arrow.up")
           }
           .buttonStyle(FloatButton())
+          
         }
         .padding(panelsPadding)
         
@@ -150,14 +146,10 @@ struct PreviewScreen: View {
     // Export
     .sheet(isPresented: $showingExportSheet) {
       
-      if let lastSnapshotURL {
-        let uiImage = UIImage(contentsOfFile: lastSnapshotURL.path())!
-        let image = Image(uiImage:uiImage)
+      if let uiImage = mainView.environmentObject(currentEditor).snapshot() {
+        let image = Image(uiImage: uiImage)
         
-        ExportView(
-          showing: $showingExportSheet,
-          image: image,
-          fileURL: lastSnapshotURL)
+        ExportView(image: image)
       }
     }
   }
@@ -179,7 +171,6 @@ struct PreviewScreen: View {
       withAnimation { () -> () in
         currentEditor.add(newLayer)
       }
-      
     }
     
     selectedPhotos = []
