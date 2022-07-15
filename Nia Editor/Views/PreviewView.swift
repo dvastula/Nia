@@ -34,6 +34,21 @@ struct PreviewView: View {
           }
           
           Button {
+            if let firstAsset = layer.assets.first,
+               let assetCGImage = firstAsset.image.cgImage,
+               let findedBody = BodySegmentation().process(image: assetCGImage) {
+              
+              withAnimation { () -> () in
+                firstAsset.image = UIImage(cgImage: findedBody)
+              }
+            } else {
+              print("ERROR while segmentation")
+            }
+          } label: {
+            Label("Find a person", systemImage: "figure.wave")
+          }
+          
+          Button {
             withAnimation { () -> () in
               currentEditor.makeBackground(from: layer)
             }
