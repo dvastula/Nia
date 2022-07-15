@@ -22,12 +22,12 @@ class Importer {
         print("Image or Animation imported")
         
         let newMedia = ImageAsset()
-        newMedia.image = uiImage
+        newMedia.image = uiImage.fixedOrientation()!
 
         return newMedia
       }
     }
-
+    
     throw ImportError.invalidFormat
   }
   
