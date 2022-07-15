@@ -10,6 +10,8 @@ import AVKit
 
 struct AssetView: View {
   @ObservedObject var mediaAsset: Asset
+  @State var locked: Bool
+  
   @State private var avPlayer: AVPlayer = AVPlayer()
   
   @State private var offset: CGSize = .zero
@@ -52,6 +54,8 @@ struct AssetView: View {
     .rotationEffect(mediaAsset.rotation)
     .offset(mediaAsset.offset)
     .position(x: mediaAsset.frame.midX, y: mediaAsset.frame.midY)
+    
+    .border(locked ? Color.red : Color.clear)
     
     .modifier(Movable(
       scale: $mediaAsset.scale,

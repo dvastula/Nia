@@ -10,6 +10,7 @@ import Foundation
 class Layer: Identifiable, ObservableObject, Equatable {
   var id = UUID()
   @Published var assets: [Asset] = []
+  @Published var locked: Bool = false
   
   @discardableResult
   func add(_ mediaAsset: Asset) -> Layer {

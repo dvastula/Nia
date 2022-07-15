@@ -14,9 +14,25 @@ struct PreviewView: View {
     ZStack {
       ForEach(currentEditor.layers) { layer in
         ForEach(layer.assets) { asset in
-          AssetView(mediaAsset: asset)
+          AssetView(mediaAsset: asset, locked: layer.locked)
         }
         .contextMenu {
+          let _ = print("Context menu of:", layer)
+          
+          if layer.locked {
+            Button {
+              currentEditor.unlock(layer)
+            } label: {
+              Label("Unlock", systemImage: "lock.open.fill")
+            }
+          } else {
+            Button {
+              currentEditor.lock(layer)
+            } label: {
+              Label("Lock", systemImage: "lock.fill")
+            }
+          }
+          
           Button {
             withAnimation { () -> () in
               currentEditor.move(layer, .up)

@@ -50,6 +50,18 @@ class Editor: Identifiable, ObservableObject {
     return self
   }
   
+  @discardableResult
+  func lock(_ layer: Layer) -> Editor {
+    layer.locked = true
+    return self
+  }
+  
+  @discardableResult
+  func unlock(_ layer: Layer) -> Editor {
+    layer.locked = false
+    return self
+  }
+  
   @MainActor @discardableResult
   func makeBackground(from layer: Layer) -> Editor {
     
