@@ -21,7 +21,7 @@ struct AssetView: View {
     VStack {
       switch mediaAsset {
       case is ImageAsset:
-        mediaAsset.image
+        Image(uiImage: mediaAsset.image)
           .resizable()
           .scaledToFit()
         
@@ -37,12 +37,12 @@ struct AssetView: View {
     }
 
     .onAppear {
-      if let videoAsset = mediaAsset as? VideoAsset {
-        let item = AVPlayerItem(asset: videoAsset.avAsset)
-        avPlayer = AVPlayer(playerItem: item)
-        avPlayer.isMuted = true
-        avPlayer.play()
-      }
+//      if let videoAsset = mediaAsset as? VideoAsset {
+//        let item = AVPlayerItem(asset: videoAsset.avAsset)
+//        avPlayer = AVPlayer(playerItem: item)
+//        avPlayer.isMuted = true
+//        avPlayer.play()
+//      }
     }
     
     .frame(width: mediaAsset.frame.width,

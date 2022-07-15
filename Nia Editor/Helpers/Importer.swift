@@ -22,7 +22,7 @@ class Importer {
         print("Image or Animation imported")
         
         let newMedia = ImageAsset()
-        newMedia.image = Image(uiImage: uiImage)
+        newMedia.image = uiImage
 
         return newMedia
       }

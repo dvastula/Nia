@@ -62,6 +62,9 @@ struct Movable: ViewModifier {
       .gesture(allGestures)
       .onChange(of: offset) { newValue in
         if !isMoving {
+          // Changes from outside (programmatically), so just listen
+          // It may be reset
+          
           tempScale = scale
           tempOffset = offset
           tempRotation = rotation

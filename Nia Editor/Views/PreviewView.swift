@@ -33,6 +33,14 @@ struct PreviewView: View {
             Label("Layer down", systemImage: "arrow.down")
           }
           
+          Button {
+            withAnimation { () -> () in
+              currentEditor.makeBackground(from: layer)
+            }
+          } label: {
+            Label("Make it Background", systemImage: "square.3.layers.3d.bottom.filled")
+          }
+          
           Button(role: .destructive) {
             withAnimation { () -> () in
               currentEditor.remove(layer)

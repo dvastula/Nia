@@ -50,6 +50,26 @@ class Editor: Identifiable, ObservableObject {
     return self
   }
   
+  @MainActor @discardableResult
+  func makeBackground(from layer: Layer) -> Editor {
+    
+    while let currentIndex = layers.firstIndex(of: layer),
+            currentIndex > 0 {
+      move(layer, .down)
+    }
+    
+    let firstAsset = layer.assets.first!
+    let firstAssetImage = firstAsset.image
+    size = firstAssetImage.size
+    
+    firstAsset.offset = .zero
+    firstAsset.scale = 1
+    firstAsset.rotation = .zero
+    firstAsset.frame = CGRect(origin: .zero, size: firstAssetImage.size)
+      
+    return self
+  }
+  
   @discardableResult
   func removeAll() -> Editor {
     layers.removeAll()
