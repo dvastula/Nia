@@ -13,6 +13,7 @@
 		13E0CA712881902D00838931 /* BodySegmentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E0CA702881902D00838931 /* BodySegmentation.swift */; };
 		13ED9DAA2876D335008CE82B /* Importer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13ED9DA92876D335008CE82B /* Importer.swift */; };
 		13ED9DAC2876E786008CE82B /* Layer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13ED9DAB2876E786008CE82B /* Layer.swift */; };
+		13F812FA28822D690039AD28 /* LayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F812F928822D690039AD28 /* LayerView.swift */; };
 		970193992559A7DB0009FB68 /* Samples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 970193982559A7DB0009FB68 /* Samples.swift */; };
 		976D72B1255DE3D700C44889 /* PreviewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976D72B0255DE3D700C44889 /* PreviewScreen.swift */; };
 		97774A78255642C7006985F0 /* Nia_EditorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97774A77255642C7006985F0 /* Nia_EditorApp.swift */; };
@@ -34,6 +35,7 @@
 		13E0CA702881902D00838931 /* BodySegmentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodySegmentation.swift; sourceTree = "<group>"; };
 		13ED9DA92876D335008CE82B /* Importer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Importer.swift; sourceTree = "<group>"; };
 		13ED9DAB2876E786008CE82B /* Layer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layer.swift; sourceTree = "<group>"; };
+		13F812F928822D690039AD28 /* LayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerView.swift; sourceTree = "<group>"; };
 		970193982559A7DB0009FB68 /* Samples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Samples.swift; sourceTree = "<group>"; };
 		976D72B0255DE3D700C44889 /* PreviewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewScreen.swift; sourceTree = "<group>"; };
 		97774A74255642C7006985F0 /* Nia Editor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Nia Editor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,6 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				977E8C852559AE9C00A94B58 /* AssetView.swift */,
+				13F812F928822D690039AD28 /* LayerView.swift */,
 				977E8C812559AC4E00A94B58 /* FloatPanel.swift */,
 				97C86929255F2A4A00D9C1F3 /* PreviewView.swift */,
 				13CF17EB287CEC8A00FDB44D /* Movable.swift */,
@@ -224,6 +227,7 @@
 				138ED1C12877246C00AB9347 /* Exporter.swift in Sources */,
 				976D72B1255DE3D700C44889 /* PreviewScreen.swift in Sources */,
 				977E8C862559AE9C00A94B58 /* AssetView.swift in Sources */,
+				13F812FA28822D690039AD28 /* LayerView.swift in Sources */,
 				13ED9DAC2876E786008CE82B /* Layer.swift in Sources */,
 				977E8C822559AC4E00A94B58 /* FloatPanel.swift in Sources */,
 				138240FE2878356900871A9A /* ExportView.swift in Sources */,

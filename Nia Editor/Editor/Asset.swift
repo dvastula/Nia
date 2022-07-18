@@ -10,14 +10,18 @@ import AVKit
 
 class Asset: Identifiable, ObservableObject {
   @Published var duration: Double = 0
-  @Published var frame: CGRect!
+  @Published var frame: CGRect = .zero
   @Published var offset: CGSize = .zero
   @Published var rotation: Angle = .degrees(0)
   @Published var scale: CGFloat = 1
   @Published var image: UIImage = UIImage()
+  
+  init(image: UIImage, frame: CGRect = .zero) {
+    self.image = image
+    self.frame = frame
+  }
 
   var id = UUID()
-  var color: Color = colors.randomElement()!
 }
 
 class VideoAsset: Asset {

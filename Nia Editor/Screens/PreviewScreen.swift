@@ -22,7 +22,7 @@ struct PreviewScreen: View {
   @State private var rotation: Angle = .degrees(0)
   
   var mainView: some View {
-    PreviewView(currentEditor: _currentEditor)
+    PreviewView(currentEditor: currentEditor)
   }
   
   var body: some View {
@@ -112,7 +112,7 @@ struct PreviewScreen: View {
           // Add asset button
           
           Button {} label: {
-            PhotosPicker(selection: $selectedPhotos) {
+            PhotosPicker(selection: $selectedPhotos, selectionBehavior: .ordered) {
               Image(systemName: "plus")
             }
           }

@@ -6,81 +6,20 @@
 //
 
 import SwiftUI
+import UniformTypeIdentifiers
 
-struct PreviewView: View {
-  @EnvironmentObject var currentEditor: Editor
+struct PreviewView: View, DropDelegate {
+  
+  @ObservedObject var currentEditor: Editor
+  @State var dropLocation: CGPoint = .zero
   
   var body: some View {
     ZStack {
       ForEach(currentEditor.layers) { layer in
-        ForEach(layer.assets) { asset in
-          AssetView(mediaAsset: asset, locked: layer.locked)
-        }
-        .contextMenu {
-          let _ = print("Context menu of:", layer)
-          
-          if layer.locked {
-            Button {
-              currentEditor.unlock(layer)
-            } label: {
-              Label("Unlock", systemImage: "lock.open.fill")
-            }
-          } else {
-            Button {
-              currentEditor.lock(layer)
-            } label: {
-              Label("Lock", systemImage: "lock.fill")
-            }
-          }
-          
-          Button {
-            withAnimation { () -> () in
-              currentEditor.move(layer, .up)
-            }
-          } label: {
-            Label("Layer up", systemImage: "arrow.up")
-          }
-          
-          Button {
-            withAnimation { () -> () in
-              currentEditor.move(layer, .down)
-            }
-          } label: {
-            Label("Layer down", systemImage: "arrow.down")
-          }
-          
-          Button {
-            if let firstAsset = layer.assets.first,
-               let assetCGImage = firstAsset.image.cgImage,
-               let findedBody = BodySegmentation().process(image: assetCGImage) {
-              
-              withAnimation { () -> () in
-                firstAsset.image = UIImage(cgImage: findedBody)
-              }
-            } else {
-              print("ERROR while segmentation")
-            }
-          } label: {
-            Label("Find a person", systemImage: "figure.wave")
-          }
-          
-          Button {
-            withAnimation { () -> () in
-              currentEditor.makeBackground(from: layer)
-            }
-          } label: {
-            Label("Make it Background", systemImage: "square.3.layers.3d.bottom.filled")
-          }
-          
-          Button(role: .destructive) {
-            withAnimation { () -> () in
-              currentEditor.remove(layer)
-            }
-          } label: {
-            Label("Remove", systemImage: "trash.fill")
-          }
-        }
-        
+        LayerView(
+          currentEditor: currentEditor,
+          layer: layer
+        )        
       }
     }
     .frame(
@@ -90,6 +29,58 @@ struct PreviewView: View {
     
     //    .border(.white)
     .background(Color.white)
+    .onDrop(of: [.image, .fileURL], delegate: self)
     //    .clipped()
   }
+  
+  func dropUpdated(info: DropInfo) -> DropProposal? {
+    dropLocation = info.location
+    
+    return .none
+  }
+  
+  func performDrop(info: DropInfo) -> Bool {
+      print("Performing drop: \(info)")
+    
+      if info.hasItemsConforming(to: [.image, .jpeg, .tiff, .gif, .png, .icns, .bmp, .ico, .rawImage, .svg]) {
+          let providers = info.itemProviders(for: [.image, .jpeg, .tiff, .gif, .png, .icns, .bmp, .ico, .rawImage, .svg])
+
+          let types: [UTType] = [.image, .png, .jpeg, .tiff, .gif, .icns, .ico, .rawImage, .bmp, .svg]
+
+          for type in types {
+              for provider in providers {
+                  if provider.registeredTypeIdentifiers.contains(type.identifier) {
+                      print("Provider \(provider) found for \(type.identifier)")
+                    
+                      provider.loadDataRepresentation(forTypeIdentifier: type.identifier) { data, error in
+                        DispatchQueue.main.async {
+                          
+                          if let data, let uiImage = UIImage(data: data) {
+                            
+                            let asset = Asset(
+                              image: uiImage,
+                              frame: CGRect(origin: dropLocation,
+                                            size: uiImage.size))
+                            
+                            withAnimation {
+                              let layer = Layer().add(asset)
+                              currentEditor.add(layer)
+                            }
+                            
+                          } else {
+                            print("ERROR while image drop")
+                          }
+                          
+                        }
+                      }
+                    
+                      return true
+                  }
+              }
+          }
+      }
+      return false
+  }
+
+  
 }

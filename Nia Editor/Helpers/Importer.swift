@@ -21,8 +21,7 @@ class Importer {
       if let uiImage = UIImage(data: data) {
         print("Image or Animation imported")
         
-        let newMedia = ImageAsset()
-        newMedia.image = uiImage.fixedOrientation()!
+        let newMedia = ImageAsset(image: uiImage.fixedOrientation()!)
 
         return newMedia
       }
