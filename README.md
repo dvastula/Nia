@@ -1,6 +1,8 @@
 # Nia Editor [WIP]
 Simple minimalist photo editor on SwiftUI
 
+[TestFlight Beta](https://testflight.apple.com/join/teWtirLw)
+
 ## Features
 - Apple's native person [segmentation](https://developer.apple.com/documentation/vision/applying_matte_effects_to_people_in_images_and_video "segmentation") (`VNGeneratePersonSegmentationRequest`). Сool for making stickers
 - `.contextMenu` implementation (animations are broken by Apple)
