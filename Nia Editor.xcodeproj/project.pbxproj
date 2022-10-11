@@ -12,13 +12,10 @@
 		13CF17EC287CEC8A00FDB44D /* Movable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13CF17EB287CEC8A00FDB44D /* Movable.swift */; };
 		13E0CA712881902D00838931 /* BodySegmentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13E0CA702881902D00838931 /* BodySegmentation.swift */; };
 		13ED9DAA2876D335008CE82B /* Importer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13ED9DA92876D335008CE82B /* Importer.swift */; };
-		13ED9DAC2876E786008CE82B /* Layer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13ED9DAB2876E786008CE82B /* Layer.swift */; };
-		13F812FA28822D690039AD28 /* LayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F812F928822D690039AD28 /* LayerView.swift */; };
 		970193992559A7DB0009FB68 /* Samples.swift in Sources */ = {isa = PBXBuildFile; fileRef = 970193982559A7DB0009FB68 /* Samples.swift */; };
 		976D72B1255DE3D700C44889 /* PreviewScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 976D72B0255DE3D700C44889 /* PreviewScreen.swift */; };
-		97774A78255642C7006985F0 /* Nia_EditorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97774A77255642C7006985F0 /* Nia_EditorApp.swift */; };
+		97774A78255642C7006985F0 /* NiaEditorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97774A77255642C7006985F0 /* NiaEditorApp.swift */; };
 		97774A7C255642CB006985F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97774A7B255642CB006985F0 /* Assets.xcassets */; };
-		97774A7F255642CB006985F0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97774A7E255642CB006985F0 /* Preview Assets.xcassets */; };
 		97774A8825564330006985F0 /* Editor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97774A8725564330006985F0 /* Editor.swift */; };
 		977E8C822559AC4E00A94B58 /* FloatPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977E8C812559AC4E00A94B58 /* FloatPanel.swift */; };
 		977E8C862559AE9C00A94B58 /* AssetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 977E8C852559AE9C00A94B58 /* AssetView.swift */; };
@@ -34,14 +31,11 @@
 		13CF17EB287CEC8A00FDB44D /* Movable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movable.swift; sourceTree = "<group>"; };
 		13E0CA702881902D00838931 /* BodySegmentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodySegmentation.swift; sourceTree = "<group>"; };
 		13ED9DA92876D335008CE82B /* Importer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Importer.swift; sourceTree = "<group>"; };
-		13ED9DAB2876E786008CE82B /* Layer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layer.swift; sourceTree = "<group>"; };
-		13F812F928822D690039AD28 /* LayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerView.swift; sourceTree = "<group>"; };
 		970193982559A7DB0009FB68 /* Samples.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Samples.swift; sourceTree = "<group>"; };
 		976D72B0255DE3D700C44889 /* PreviewScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewScreen.swift; sourceTree = "<group>"; };
 		97774A74255642C7006985F0 /* Nia Editor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Nia Editor.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		97774A77255642C7006985F0 /* Nia_EditorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Nia_EditorApp.swift; sourceTree = "<group>"; };
+		97774A77255642C7006985F0 /* NiaEditorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NiaEditorApp.swift; sourceTree = "<group>"; };
 		97774A7B255642CB006985F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		97774A7E255642CB006985F0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		97774A80255642CB006985F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		97774A8725564330006985F0 /* Editor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Editor.swift; sourceTree = "<group>"; };
 		977E8C812559AC4E00A94B58 /* FloatPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatPanel.swift; sourceTree = "<group>"; };
@@ -76,7 +70,6 @@
 			isa = PBXGroup;
 			children = (
 				977E8C852559AE9C00A94B58 /* AssetView.swift */,
-				13F812F928822D690039AD28 /* LayerView.swift */,
 				977E8C812559AC4E00A94B58 /* FloatPanel.swift */,
 				97C86929255F2A4A00D9C1F3 /* PreviewView.swift */,
 				13CF17EB287CEC8A00FDB44D /* Movable.swift */,
@@ -119,20 +112,11 @@
 				9790741E255F23DD00377A0A /* Screens */,
 				970193962559A7A80009FB68 /* Views */,
 				970193972559A7C60009FB68 /* Helpers */,
-				97774A77255642C7006985F0 /* Nia_EditorApp.swift */,
+				97774A77255642C7006985F0 /* NiaEditorApp.swift */,
 				97774A7B255642CB006985F0 /* Assets.xcassets */,
 				97774A80255642CB006985F0 /* Info.plist */,
-				97774A7D255642CB006985F0 /* Preview Content */,
 			);
 			path = "Nia Editor";
-			sourceTree = "<group>";
-		};
-		97774A7D255642CB006985F0 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				97774A7E255642CB006985F0 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 		9790741E255F23DD00377A0A /* Screens */ = {
@@ -149,7 +133,6 @@
 			children = (
 				97774A8725564330006985F0 /* Editor.swift */,
 				97C8692C255F36A100D9C1F3 /* Asset.swift */,
-				13ED9DAB2876E786008CE82B /* Layer.swift */,
 			);
 			path = Editor;
 			sourceTree = "<group>";
@@ -211,7 +194,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				97774A7F255642CB006985F0 /* Preview Assets.xcassets in Resources */,
 				97774A7C255642CB006985F0 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -227,8 +209,6 @@
 				138ED1C12877246C00AB9347 /* Exporter.swift in Sources */,
 				976D72B1255DE3D700C44889 /* PreviewScreen.swift in Sources */,
 				977E8C862559AE9C00A94B58 /* AssetView.swift in Sources */,
-				13F812FA28822D690039AD28 /* LayerView.swift in Sources */,
-				13ED9DAC2876E786008CE82B /* Layer.swift in Sources */,
 				977E8C822559AC4E00A94B58 /* FloatPanel.swift in Sources */,
 				138240FE2878356900871A9A /* ExportView.swift in Sources */,
 				13CF17EC287CEC8A00FDB44D /* Movable.swift in Sources */,
@@ -239,7 +219,7 @@
 				13ED9DAA2876D335008CE82B /* Importer.swift in Sources */,
 				13E0CA712881902D00838931 /* BodySegmentation.swift in Sources */,
 				97C86927255F295E00D9C1F3 /* Extensions.swift in Sources */,
-				97774A78255642C7006985F0 /* Nia_EditorApp.swift in Sources */,
+				97774A78255642C7006985F0 /* NiaEditorApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,7 +350,6 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Nia Editor/Preview Content\"";
 				DEVELOPMENT_TEAM = BZ82DRDZY8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Nia Editor/Info.plist";
@@ -397,7 +376,6 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Nia Editor/Preview Content\"";
 				DEVELOPMENT_TEAM = BZ82DRDZY8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Nia Editor/Info.plist";

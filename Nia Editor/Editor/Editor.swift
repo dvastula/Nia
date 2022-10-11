@@ -15,34 +15,34 @@ enum VerticalDirection {
 class Editor: Identifiable, ObservableObject {
   var id = UUID()
   @Published var size: CGSize = CGSize(width: 1080, height: 1920)
-  @Published var layers: [Layer] = []
+  @Published var assets: [Asset] = []
   
   @discardableResult
-  func add(_ newLayer: Layer) -> Editor {
-    layers.append(newLayer)
+  func add(_ newAsset: Asset) -> Editor {
+    assets.append(newAsset)
     return self
   }
   
   @discardableResult
-  func remove(_ newLayer: Layer) -> Editor {
-    layers.removeAll { (layer) -> Bool in
-      return layer.id == newLayer.id
+  func remove(_ newAsset: Asset) -> Editor {
+    assets.removeAll { (asset) -> Bool in
+      return asset.id == newAsset.id
     }
     
     return self
   }
   
   @discardableResult
-  func move(_ layer: Layer, _ direction: VerticalDirection) -> Editor {
+  func move(_ asset: Asset, _ direction: VerticalDirection) -> Editor {
     
-    if let currentIndex = layers.firstIndex(of: layer) {
+    if let currentIndex = assets.firstIndex(of: asset) {
       
-      if direction == .up && currentIndex < layers.count - 1 {
-        layers.insert(layer, at: currentIndex + 2)
-        layers.remove(at: currentIndex)
+      if direction == .up && currentIndex < assets.count - 1 {
+        assets.insert(asset, at: currentIndex + 2)
+        assets.remove(at: currentIndex)
       } else if direction == .down && currentIndex > 0 {
-        layers.insert(layer, at: currentIndex - 1)
-        layers.remove(at: currentIndex + 1)
+        assets.insert(asset, at: currentIndex - 1)
+        assets.remove(at: currentIndex + 1)
       }
       
     }
@@ -51,40 +51,40 @@ class Editor: Identifiable, ObservableObject {
   }
   
   @discardableResult
-  func lock(_ layer: Layer) -> Editor {
-    layer.locked = true
+  func lock(_ asset: Asset) -> Editor {
+    asset.locked = true
     return self
   }
   
   @discardableResult
-  func unlock(_ layer: Layer) -> Editor {
-    layer.locked = false
+  func unlock(_ asset: Asset) -> Editor {
+    asset.locked = false
     return self
   }
   
-  @MainActor @discardableResult
-  func makeBackground(from layer: Layer) -> Editor {
+  @discardableResult
+  func makeBackground(from asset: Asset) -> Editor {
     
-    while let currentIndex = layers.firstIndex(of: layer),
+    while let currentIndex = assets.firstIndex(of: asset),
             currentIndex > 0 {
-      move(layer, .down)
+      move(asset, .down)
     }
     
-    let firstAsset = layer.assets.first!
-    let firstAssetImage = firstAsset.image
+    let firstAssetImage = asset.image
     size = firstAssetImage.size
     
-    firstAsset.offset = .zero
-    firstAsset.scale = 1
-    firstAsset.rotation = .zero
-    firstAsset.frame = CGRect(origin: .zero, size: firstAssetImage.size)
+    asset.offset = .zero
+    asset.scale = 1
+    asset.rotation = .zero
+    asset.frame = CGRect(origin: .zero, size: firstAssetImage.size)
       
+    
     return self
   }
   
   @discardableResult
   func removeAll() -> Editor {
-    layers.removeAll()
+    assets.removeAll()
     return self
   }
   

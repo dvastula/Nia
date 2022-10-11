@@ -9,8 +9,8 @@ import SwiftUI
 import AVKit
 
 struct AssetView: View {
-  @ObservedObject var mediaAsset: Asset
-  @State var locked: Bool
+  @ObservedObject var currentEditor: Editor
+  @ObservedObject var asset: Asset
   
   @State private var avPlayer: AVPlayer = AVPlayer()
   
@@ -21,11 +21,100 @@ struct AssetView: View {
   var body: some View {
     
     VStack {
-      switch mediaAsset {
+      switch asset {
       case is ImageAsset:
-        Image(uiImage: mediaAsset.image)
+        Image(uiImage: asset.image)
           .resizable()
           .scaledToFit()
+          .contextMenu {
+            let _ = print("Context menu of:", asset)
+            
+            if asset.locked {
+              Button {
+                currentEditor.unlock(asset)
+              } label: {
+                Label("Unlock", systemImage: "lock.open.fill")
+              }
+            } else {
+              Button {
+                currentEditor.lock(asset)
+              } label: {
+                Label("Lock", systemImage: "lock.fill")
+              }
+            }
+            
+//            Menu("Layout") {
+              
+              Button {
+                withAnimation { () -> () in
+                  currentEditor.move(asset, .up)
+                }
+              } label: {
+                Label("Layer up", systemImage: "arrow.up")
+              }
+              
+              Button {
+                withAnimation { () -> () in
+                  currentEditor.move(asset, .down)
+                }
+              } label: {
+                Label("Layer down", systemImage: "arrow.down")
+              }
+              
+              Button {
+                withAnimation { () -> () in
+                  currentEditor.makeBackground(from: asset)
+                }
+              } label: {
+                Label("Make it Background", systemImage: "square.3.assets.3d.bottom.filled")
+              }
+//            }
+            
+            Menu("Magic") {
+              
+              Button {
+                if let assetCGImage = asset.image.cgImage,
+                   let findedBody = BodySegmentation().process(image: assetCGImage) {
+                  
+                  withAnimation { () -> () in
+                    asset.image = UIImage(cgImage: findedBody)
+                  }
+                } else {
+                  print("ERROR while segmentation")
+                }
+              } label: {
+                Label("Find a person", systemImage: "figure.wave")
+              }
+            }
+            
+            Button {
+              withAnimation { () -> () in
+                asset.image = asset.originalImage
+              }
+            } label: {
+              Label("Reset", systemImage: "arrow.triangle.2.circlepath")
+            }
+            
+            if let imageView = Image(uiImage: asset.image),
+               let randomPrefix = UUID().uuidString.prefix(8) {
+              
+              ShareLink(
+                item: imageView,
+                preview: SharePreview(randomPrefix, image: imageView)
+              ) {
+                Label("Share", systemImage: "square.and.arrow.up")
+              }
+            }
+            
+            Button(role: .destructive) {
+              withAnimation { () -> () in
+                currentEditor.remove(asset)
+              }
+            } label: {
+              Label("Remove", systemImage: "trash.fill")
+            }
+          }
+
         
       case is VideoAsset:
         //          if let url = (avPlayer.currentItem?.asset as? AVURLAsset)?.url {
@@ -39,32 +128,35 @@ struct AssetView: View {
     }
 
     .onAppear {
-//      if let videoAsset = mediaAsset as? VideoAsset {
-//        let item = AVPlayerItem(asset: videoAsset.avAsset)
-//        avPlayer = AVPlayer(playerItem: item)
-//        avPlayer.isMuted = true
-//        avPlayer.play()
+//      if let videoAsset = asset as? VideoAsset {
+//        let item = AVPassetItem(asset: videoAsset.avAsset)
+//        avPasset = AVPasset(passetItem: item)
+//        avPasset.isMuted = true
+//        avPasset.play()
 //      }
     }
     
-    .frame(width: mediaAsset.frame.width,
-           height: mediaAsset.frame.height,
+    .frame(width: asset.frame.width,
+           height: asset.frame.height,
            alignment: .topLeading)
-    .scaleEffect(mediaAsset.scale)
-    .rotationEffect(mediaAsset.rotation)
-    .offset(mediaAsset.offset)
-    .position(x: mediaAsset.frame.midX, y: mediaAsset.frame.midY)
     
-    .border(locked ? Color.red : Color.clear)
+    .clipped()
+    .scaleEffect(asset.scale)
+    .rotationEffect(asset.rotation)
+    .offset(asset.offset)
+    .position(x: asset.frame.midX, y: asset.frame.midY)
+    
+    .border(asset.locked ? Color.red : Color.clear)
     
     .modifier(Movable(
-      scale: $mediaAsset.scale,
-      offset: $mediaAsset.offset,
-      rotation: $mediaAsset.rotation)
+      scale: $asset.scale,
+      offset: $asset.offset,
+      rotation: $asset.rotation)
     )
 
-    .animation(Animation.easeInOut(duration: 0.15), value: mediaAsset.offset)
-    .animation(Animation.easeInOut(duration: 0.15), value: mediaAsset.scale)
-    .animation(Animation.easeInOut(duration: 0.15), value: mediaAsset.rotation)
+    .animation(Animation.easeInOut(duration: 0.15), value: asset.offset)
+    .animation(Animation.easeInOut(duration: 0.15), value: asset.scale)
+    .animation(Animation.easeInOut(duration: 0.15), value: asset.rotation)
+    
   }
 }

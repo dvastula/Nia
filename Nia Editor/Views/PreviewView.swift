@@ -15,10 +15,10 @@ struct PreviewView: View, DropDelegate {
   
   var body: some View {
     ZStack {
-      ForEach(currentEditor.layers) { layer in
-        LayerView(
+      ForEach(currentEditor.assets) { asset in
+        AssetView(
           currentEditor: currentEditor,
-          layer: layer
+          asset: asset
         )        
       }
     }
@@ -62,9 +62,8 @@ struct PreviewView: View, DropDelegate {
                               frame: CGRect(origin: dropLocation,
                                             size: uiImage.size))
                             
-                            withAnimation {
-                              let layer = Layer().add(asset)
-                              currentEditor.add(layer)
+                            withAnimation { () -> () in
+                              currentEditor.add(asset)
                             }
                             
                           } else {

@@ -66,7 +66,7 @@ struct PreviewScreen: View {
         // Action panels
         
         FloatPanel(.topLeading) {
-          if !currentEditor.layers.isEmpty {
+          if !currentEditor.assets.isEmpty {
             // Remove all button
             
             Button {
@@ -165,11 +165,9 @@ struct PreviewScreen: View {
                               y: 100 * randomInt,
                               width: 100 * randomInt,
                               height: 100 * randomInt)
-      
-      let newLayer = Layer().add(newAsset)
-      
+            
       withAnimation { () -> () in
-        currentEditor.add(newLayer)
+        currentEditor.add(newAsset)
       }
     }
     

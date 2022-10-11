@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct Nia_EditorApp: App {
+struct NiaEditorApp: App {
   var currentEditor: Editor = Editor()
   
   var body: some Scene {

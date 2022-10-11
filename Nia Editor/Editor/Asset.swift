@@ -8,16 +8,23 @@
 import SwiftUI
 import AVKit
 
-class Asset: Identifiable, ObservableObject {
+class Asset: Identifiable, ObservableObject, Equatable {
+  static func == (lhs: Asset, rhs: Asset) -> Bool {
+    lhs.image == rhs.image
+  }
+  
   @Published var duration: Double = 0
   @Published var frame: CGRect = .zero
   @Published var offset: CGSize = .zero
   @Published var rotation: Angle = .degrees(0)
   @Published var scale: CGFloat = 1
   @Published var image: UIImage = UIImage()
-  
+  @Published var originalImage: UIImage = UIImage()
+  @Published var locked: Bool = false
+
   init(image: UIImage, frame: CGRect = .zero) {
     self.image = image
+    self.originalImage = image
     self.frame = frame
   }
 
