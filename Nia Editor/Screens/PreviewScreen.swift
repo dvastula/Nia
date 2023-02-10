@@ -10,7 +10,7 @@ import AVKit
 import PhotosUI
 import Photos
 
-struct PreviewScreen: View {
+struct PreviewScreen: View, DropDelegate {
   @EnvironmentObject var currentEditor: Editor
   @State private var selectedPhotos: [PhotosPickerItem] = []
   @State private var lastTimeImported: Date = Date()
@@ -21,8 +21,11 @@ struct PreviewScreen: View {
   @State private var offset: CGSize = .zero
   @State private var rotation: Angle = .degrees(0)
   
+  @State var dropLocation: CGPoint = .zero
+  
   var mainView: some View {
     PreviewView(currentEditor: currentEditor)
+      .onDrop(of: [.image, .fileURL], delegate: self)
   }
   
   var body: some View {
@@ -173,4 +176,53 @@ struct PreviewScreen: View {
     
     selectedPhotos = []
   }
+  
+  func dropUpdated(info: DropInfo) -> DropProposal? {
+    dropLocation = info.location
+    
+    return .none
+  }
+  
+  func performDrop(info: DropInfo) -> Bool {
+    print("Performing drop: \(info)")
+    
+    if info.hasItemsConforming(to: [.image, .jpeg, .tiff, .gif, .png, .icns, .bmp, .ico, .rawImage, .svg]) {
+      let providers = info.itemProviders(for: [.image, .jpeg, .tiff, .gif, .png, .icns, .bmp, .ico, .rawImage, .svg])
+      let types: [UTType] = [.image, .png, .jpeg, .tiff, .gif, .icns, .ico, .rawImage, .bmp, .svg]
+      
+      for type in types {
+        for provider in providers {
+          if provider.registeredTypeIdentifiers.contains(type.identifier) {
+            print("Provider \(provider) found for \(type.identifier)")
+            
+            provider.loadDataRepresentation(forTypeIdentifier: type.identifier) { data, error in
+              DispatchQueue.main.async {
+                
+                if let data, let uiImage = UIImage(data: data) {
+                  
+                  let asset = ImageAsset(
+                    image: uiImage,
+                    frame: CGRect(origin: dropLocation,
+                                  size: uiImage.size))
+                  
+                  withAnimation { () -> () in
+                    currentEditor.add(asset)
+                  }
+                  
+                } else {
+                  print("ERROR while image drop")
+                }
+                
+              }
+            }
+            
+            return true
+          }
+        }
+      }
+    }
+    
+    return false
+  }
+
 }
